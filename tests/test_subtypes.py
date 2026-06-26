@@ -1,5 +1,6 @@
 """Tests of schema sub-types."""
 
+import json
 import os
 
 import fiona
@@ -48,10 +49,10 @@ def test_write_bool_subtype(tmp_path):
         dst.write(feature)
 
     with open(os.fspath(path)) as f:
-        data = f.read()
+        properties = json.load(f)["features"][0]["properties"]
 
-    assert """"bool": true""" in data
-    assert """"not_bool": 1""" in data
+    assert properties["bool"] is True
+    assert properties["not_bool"] == 1
 
 
 def test_write_int16_subtype(tmp_path):

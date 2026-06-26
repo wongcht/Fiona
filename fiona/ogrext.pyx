@@ -50,7 +50,6 @@ DEFAULT_TRANSACTION_SIZE = 20000
 
 # OGR Driver capability
 cdef const char * ODrCCreateDataSource = "CreateDataSource"
-cdef const char * ODrCDeleteDataSource = "DeleteDataSource"
 
 # OGR Layer capability
 cdef const char * OLC_RANDOMREAD = "RandomRead"
@@ -2084,9 +2083,6 @@ def _remove(path, driver=None):
 
     if cogr_driver == NULL:
         raise DatasetDeleteError(f"Null driver when attempting to delete {path}")
-
-    if not OGR_Dr_TestCapability(cogr_driver, ODrCDeleteDataSource):
-        raise DatasetDeleteError("Driver does not support dataset removal operation")
 
     result = GDALDeleteDataset(cogr_driver, path.encode('utf-8'))
     if result != OGRERR_NONE:
