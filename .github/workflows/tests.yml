@@ -115,6 +115,7 @@ jobs:
             geos>=3.12
             cython=3
             numpy
+            setuptools
 
       - name: Install Env
         if: matrix.os != 'windows-latest'
