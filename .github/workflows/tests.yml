@@ -111,7 +111,7 @@ jobs:
           environment-name: test
           create-args: >-
             python=${{ matrix.python-version }}
-            libgdal=3.9
+            libgdal=3.13
             geos>=3.12
             cython=3
             numpy
@@ -128,7 +128,7 @@ jobs:
         if: matrix.os == 'windows-latest'
         shell: bash -l {0}
         run: |
-          GDAL_VERSION="3.9.3" micromamba run -n test python setup.py build_ext -I"$MAMBA_ROOT_PREFIX/envs/test/Library/include" -lgdal -L"$MAMBA_ROOT_PREFIX/envs/test/Library/lib" install
+          GDAL_VERSION="3.13.1" micromamba run -n test python setup.py build_ext -I"$MAMBA_ROOT_PREFIX/envs/test/Library/include" -lgdal -L"$MAMBA_ROOT_PREFIX/envs/test/Library/lib" install
           micromamba run -n test python -m pip install -r requirements-dev.txt
           rm -rf fiona
 
