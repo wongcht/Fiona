@@ -34,7 +34,7 @@ from typing import Mapping
 
 from pyparsing import (  # type: ignore
     Keyword,
-    oneOf,
+    one_of,
     Literal,
     QuotedString,
     ParseException,
