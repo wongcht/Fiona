@@ -1,18 +1,18 @@
 """Fiona CLI commands."""
 
-from collections import defaultdict
-from copy import copy
 import itertools
 import json
 import logging
 import warnings
+from collections import defaultdict
+from copy import copy
 
 import click
 from cligj import use_rs_opt  # type: ignore
 
 from fiona.features import map_feature, reduce_features
 from fiona.fio import with_context_env
-from fiona.fio.helpers import obj_gen, eval_feature_expression  # type: ignore
+from fiona.fio.helpers import eval_feature_expression, obj_gen  # type: ignore
 
 log = logging.getLogger(__name__)
 
@@ -156,11 +156,12 @@ def filter_cmd(ctx, pipeline, use_rs, snuggs_only):
     if not snuggs_only:
         try:
             from pyparsing.exceptions import ParseException
+
             from fiona._vendor.snuggs import ExpressionError, expr
 
             if not pipeline.startswith("("):
                 test_string = f"({pipeline})"
-            expr.parseString(test_string)
+            expr.parse_string(test_string)
         except ExpressionError:
             # It's a snuggs expression.
             log.info("Detected a snuggs expression.")

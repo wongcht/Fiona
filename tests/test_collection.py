@@ -1018,7 +1018,8 @@ def test_open_kwargs(tmpdir, path_coutwildrnp_shp):
             dst.writerecords(ftr for ftr in src)
 
     with open(dstfile) as f:
-        assert '"coordinates": [ [ [ -111.74, 42.0 ], [ -111.66, 42.0 ]' in f.read(2000)
+        coordinates = json.load(f)["features"][0]["geometry"]["coordinates"]
+    assert coordinates[0][:2] == [[-111.74, 42.0], [-111.66, 42.0]]
 
 
 @pytest.mark.network
