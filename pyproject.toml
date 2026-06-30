@@ -45,7 +45,6 @@ test = [
     "fiona[s3]",
     "pytest>=7",
     "pytest-cov",
-    "pytz",
 ]
 
 [project.scripts]
