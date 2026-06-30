@@ -21,8 +21,7 @@ from fiona.drvsupport import (
     _driver_supports_milliseconds,
     _driver_supports_mode,
 )
-import pytz
-from pytz import timezone
+from zoneinfo import ZoneInfo
 
 gdal_version = GDALVersion.runtime()
 
@@ -160,19 +159,19 @@ def generate_testdata(field_type, driver):
                 datetime.datetime(2018, 3, 25, 22, 49, 5, tzinfo=TZ(-90)),
             ),
             (
-                datetime.datetime(2020, 1, 21, 12, 0, 0, tzinfo=pytz.utc).astimezone(
-                    timezone("Europe/Zurich")
+                datetime.datetime(2020, 1, 21, 12, 0, 0, tzinfo=datetime.timezone.utc).astimezone(
+                    ZoneInfo("Europe/Zurich")
                 ),
-                datetime.datetime(2020, 1, 21, 12, 0, 0, tzinfo=pytz.utc).astimezone(
-                    timezone("Europe/Zurich")
+                datetime.datetime(2020, 1, 21, 12, 0, 0, tzinfo=datetime.timezone.utc).astimezone(
+                    ZoneInfo("Europe/Zurich")
                 ),
             ),
             (
-                datetime.datetime(2020, 1, 21, 12, 0, 0, tzinfo=pytz.utc).astimezone(
-                    timezone("America/Denver")
+                datetime.datetime(2020, 1, 21, 12, 0, 0, tzinfo=datetime.timezone.utc).astimezone(
+                    ZoneInfo("America/Denver")
                 ),
-                datetime.datetime(2020, 1, 21, 12, 0, 0, tzinfo=pytz.utc).astimezone(
-                    timezone("America/Denver")
+                datetime.datetime(2020, 1, 21, 12, 0, 0, tzinfo=datetime.timezone.utc).astimezone(
+                    ZoneInfo("America/Denver")
                 ),
             ),
             (
@@ -254,27 +253,27 @@ def test_compare_datetimes_utc():
     assert d1 == d2
     assert compare_datetimes_utc(d1, d2)
 
-    d1 = datetime.datetime(2020, 1, 21, 12, 0, 0, tzinfo=pytz.utc).astimezone(
-        timezone("Europe/Zurich")
+    d1 = datetime.datetime(2020, 1, 21, 12, 0, 0, tzinfo=datetime.timezone.utc).astimezone(
+        ZoneInfo("Europe/Zurich")
     )
-    d2 = datetime.datetime(2020, 1, 21, 12, 0, 0, tzinfo=pytz.utc)
+    d2 = datetime.datetime(2020, 1, 21, 12, 0, 0, tzinfo=datetime.timezone.utc)
     assert d1 == d2
     assert compare_datetimes_utc(d1, d2)
 
-    d1 = datetime.datetime(2020, 1, 21, 12, 0, 0, tzinfo=pytz.utc).astimezone(
-        timezone("Europe/Zurich")
+    d1 = datetime.datetime(2020, 1, 21, 12, 0, 0, tzinfo=datetime.timezone.utc).astimezone(
+        ZoneInfo("Europe/Zurich")
     )
-    d2 = datetime.datetime(2020, 1, 21, 12, 0, 0, tzinfo=pytz.utc).astimezone(
-        timezone("America/Denver")
+    d2 = datetime.datetime(2020, 1, 21, 12, 0, 0, tzinfo=datetime.timezone.utc).astimezone(
+        ZoneInfo("America/Denver")
     )
     assert d1 == d2
     assert compare_datetimes_utc(d1, d2)
 
-    d1 = datetime.datetime(2020, 6, 21, 12, 0, 0, tzinfo=pytz.utc).astimezone(
-        timezone("Europe/Zurich")
+    d1 = datetime.datetime(2020, 6, 21, 12, 0, 0, tzinfo=datetime.timezone.utc).astimezone(
+        ZoneInfo("Europe/Zurich")
     )
-    d2 = datetime.datetime(2020, 6, 21, 12, 0, 0, tzinfo=pytz.utc).astimezone(
-        timezone("America/Denver")
+    d2 = datetime.datetime(2020, 6, 21, 12, 0, 0, tzinfo=datetime.timezone.utc).astimezone(
+        ZoneInfo("America/Denver")
     )
     assert d1 == d2
     assert compare_datetimes_utc(d1, d2)
@@ -317,13 +316,13 @@ def test_compare_times_utc():
     assert compare_times_utc(d1, d2)
 
     d1 = (
-        datetime.datetime(2020, 6, 21, 12, 0, 0, tzinfo=pytz.utc)
-        .astimezone(timezone("Europe/Brussels"))
+        datetime.datetime(2020, 6, 21, 12, 0, 0, tzinfo=datetime.timezone.utc)
+        .astimezone(ZoneInfo("Europe/Brussels"))
         .timetz()
     )
     d2 = (
-        datetime.datetime(2020, 6, 21, 12, 0, 0, tzinfo=pytz.utc)
-        .astimezone(timezone("America/Panama"))
+        datetime.datetime(2020, 6, 21, 12, 0, 0, tzinfo=datetime.timezone.utc)
+        .astimezone(ZoneInfo("America/Panama"))
         .timetz()
     )
     assert compare_times_utc(d1, d2)
